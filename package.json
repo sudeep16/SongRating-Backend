@@ -1,0 +1,24 @@
+{
+  "name": "songratingsystem",
+  "version": "1.0.0",
+  "description": "Rating of Songs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sudeep16/APISongRating.git"
+  },
+  "author": "Sudeep Raj Shakya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sudeep16/APISongRating/issues"
+  },
+  "homepage": "https://github.com/sudeep16/APISongRating#readme",
+  "dependencies": {
+    "eslint": "^6.7.2",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.1"
+  }
+}
