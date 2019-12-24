@@ -4,7 +4,8 @@
   "description": "Rating of Songs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,10 @@
   },
   "homepage": "https://github.com/sudeep16/APISongRating#readme",
   "dependencies": {
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.1"
+    "mysql2": "^2.0.2",
+    "nodemon": "^2.0.2",
+    "sequelize": "^5.21.3"
   }
 }
