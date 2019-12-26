@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 
 rateApp.use(bodyParser.urlencoded({extended:true}));
 
-rateApp.post("/register", userRegController.register);
+rateApp.post("/register", userRegController.hashPassword,userRegController.register);
 
 
 
