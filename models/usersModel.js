@@ -1,55 +1,37 @@
-var db = require("../config/dbConfig.js");
-var user = db.sequelize.define("usersRegistered", {
-    Id: {
-        type: db.Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+const mongoose = require("mongoose");
 
-    },  Name: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
-
-    },  Address: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
-
-    },  Email: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
-
-    },  Gender: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
-
-    },  Phone:{
-        type: db.Sequelize.BIGINT,
-        allowNull:false
-
-    },  Username: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
+const users = new mongoose.Schema({
+    Username: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 6,
+        maxlength: 50
 
     },  Password: {
-        type: db.Sequelize.TEXT,
-        allowNull: false
+        type: String,
+        required:true
+   
+    },  Email: {
+        type: String,
+        required:true
 
-    }
+    },  Phone:{
+        type: String,
+        required:true
     
-},
-{
-    //Prevent from creating different tables of same name 
-    freezeTableName: true,
+    },  Address: {
+        type: String,
+        required:true
 
+    },  Gender: {
+        type: String,
+        required:true
+    
+    },  Image: {
+        type: String,
+        required:true
+    }
 });
 
-user.sync({
-    force: false
-})
-.then(function(){
-
-}).catch(function(error){
-    console.log(error);
-});
-
-module.exports = user;
+module.exports = mongoose.model("UsersRegistered", users);

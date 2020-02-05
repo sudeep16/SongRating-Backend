@@ -1,15 +1,45 @@
-"use strict";
-var userRegController = require("./controllers/userRegController.js");
 const express = require("express");
-const rateApp = express();
-const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv").config();
 
-rateApp.use(bodyParser.urlencoded({extended:true}));
+const usersRoute =  require("./controllers/userRegController.js")
+const imageRoute = require("./controllers/upload.js")
 
-rateApp.post("/register", userRegController.hashPassword,userRegController.register);
+//Calling Classes
+const authentication = require("./authentication")
+
+const rateapp = express();
+rateapp.options("*", cors());
+rateapp.use(morgan("tiny"));
+rateapp.use(express.json());
+rateapp.use(express.urlencoded({ extended: true }));
+rateapp.use(express.static(__dirname + "/public"));
+
+//Routes
+rateapp.use("/users", usersRoute);
+rateapp.use("/upload", imageRoute);
+rateapp.use(authentication.verifyUser);
+
+//Database Connection
+mongoose.connect(process.env.URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+}).then((db) => {
+    console.log("Successfully connected to MongoDB server");
+}, (err) => console.log(err));
 
 
+rateapp.listen(process.env.PORT,()=>{
+    console.log(`App is running at localhost:${process.env.PORT}`);
+});
 
-
-rateApp.listen(3011)
-
+//error handler
+rateapp.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.statusCode = 500;
+    res.json({ status: err.message });
+});
