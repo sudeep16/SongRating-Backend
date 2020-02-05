@@ -6,22 +6,22 @@ const router = express.Router();
 
 //Registration
 router.post("/registration", (req, res, next) => {
-    let password = req.body.password;
-    bcrypt.hash(password, 7, (err, hash) => {
-        console.log(err);
+    console.log(req.body);
+    let password = req.body.Password;   
+    bcrypt.hash(password, 7, function(err, hash) {
         if (err) {
             let err = new Error("Could not hash");
             err.status = 500;
             return next(err);
         }
         Users.create({
-            Username: req.body.username,
+            Username: req.body.Username,
             Password: hash,
-            Email: req.body.email,
-            Address: req.body.address,
-            Gender: req.body.gender,
-            Phone: req.body.phone,
-            Image: req.body.image
+            Email: req.body.Email,
+            Address: req.body.Address,
+            Gender: req.body.Gender,
+            Phone: req.body.Phone,
+            Image: req.body.Image
         })
             .then((user) => {
                 let token = jwt.sign({ _id: user._id }, process.env.SECRET);
@@ -37,8 +37,8 @@ router.post("/registration", (req, res, next) => {
 //login
 router.post("/login", (req, res, next) => {
     console.log(req.body);
-    User.findOne({
-        username: req.body.username
+    Users.findOne({
+        Username: req.body.Username
     })
         .then((user) => {
             if (user == null) {
@@ -46,7 +46,7 @@ router.post("/login", (req, res, next) => {
                 err.status = 401;
                 return next(err);
             } else {
-                bcrypt.compare(req.body.password, user.password)
+                bcrypt.compare(req.body.Password, user.Password)
                     .then((isMatch) => {
                         if (!isMatch) {
                             let err = new Error("Password doesn't match. Try again!");

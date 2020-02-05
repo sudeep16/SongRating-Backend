@@ -4,8 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-const usersRoute =  require("./controllers/userRegController.js")
-const imageRoute = require("./controllers/upload.js")
+const usersRoute =  require("./controllers/userRegController")
+const imageRoute = require("./controllers/upload")
 
 //Calling Classes
 const authentication = require("./authentication")
