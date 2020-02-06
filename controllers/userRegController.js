@@ -57,7 +57,7 @@ router.post("/login", (req, res, next) => {
                             _id: user._id,
                         }, process.env.SECRET);
                         res.json({
-                            status: "Login successful",
+                            status: "Login Successful",
                             token: token
                         });
                         console.log(token);
