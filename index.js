@@ -4,11 +4,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-const usersRoute =  require("./controllers/userRegController")
-const imageRoute = require("./controllers/upload")
-
 //Calling Classes
 const authentication = require("./authentication")
+const usersRoute =  require("./controllers/userRegController")
+const imageRoute = require("./controllers/upload")
 
 const rateapp = express();
 rateapp.options("*", cors());
@@ -21,6 +20,7 @@ rateapp.use(express.static(__dirname + "/public"));
 rateapp.use("/users", usersRoute);
 rateapp.use("/upload", imageRoute);
 rateapp.use(authentication.verifyUser);
+
 
 //Database Connection
 mongoose.connect(process.env.URL, {

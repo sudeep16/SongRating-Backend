@@ -1,20 +1,21 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Users = require("../models/usersModel");
+const UsersRegistered = require("../models/usersModel.js");
+const authentication = require("../authentication")
 const router = express.Router();
 
 //Registration
 router.post("/registration", (req, res, next) => {
     console.log(req.body);
-    let password = req.body.Password;   
-    bcrypt.hash(password, 7, function(err, hash) {
+    let password = req.body.Password;
+    bcrypt.hash(password, 7, function (err, hash) {
         if (err) {
             let err = new Error("Could not hash");
             err.status = 500;
             return next(err);
         }
-        Users.create({
+        UsersRegistered.create({
             Username: req.body.Username,
             Password: hash,
             Email: req.body.Email,
@@ -37,7 +38,7 @@ router.post("/registration", (req, res, next) => {
 //login
 router.post("/login", (req, res, next) => {
     console.log(req.body);
-    Users.findOne({
+    UsersRegistered.findOne({
         Username: req.body.Username
     })
         .then((user) => {
@@ -65,5 +66,34 @@ router.post("/login", (req, res, next) => {
             }
         }).catch(next);
 })
+
+//get profile detail
+router.get("/profile", authentication.verifyUser, (req, res, next) => {
+    // console.log(req.songRating);
+    res.json({
+        _id: req.user._id,
+        Username: req.user.Username,
+        Email: req.user.Email,
+        Address: req.user.Address,
+        Gender: req.user.Gender,
+        Phone: req.user.Phone,
+        Image: req.user.Image
+    });
+});
+
+router.put("/updProfile", authentication.verifyUser, (req, res, next) => {
+    // console.log(req.songRating);
+    UsersRegistered.findByIdAndUpdate(req.user._id, { $set: req.body }, { new: true })
+        .then((user) => {
+            res.json({
+                _id: user._id,
+                Username: user.Username,
+                Email: req.user.Email,
+                Address: req.user.Address,
+                Phone: req.user.Phone
+            });
+        })
+        .catch(next);
+});
 
 module.exports = router;
