@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Admin = require("../models/adminModel");
-const authentication = require("../authentication")
 const router = express.Router();
 
 //Registration
@@ -19,8 +18,8 @@ router.post("/adminRegister", (req, res, next) => {
             Username: req.body.Username,
             Password: hash,
         })
-            .then((user) => {
-                let token = jwt.sign({ _id: user._id }, process.env.SECRET);
+            .then((admin) => {
+                let token = jwt.sign({ _id: admin._id }, process.env.SECRET);
                 res.json({
                     status: "!! Admin Registration Successfull !!",
                     token: token
@@ -38,7 +37,7 @@ router.post("/adminLogin", (req, res, next) => {
     })
         .then((admin) => {
             if (admin == null) {
-                let err = new Error("User not found");
+                let err = new Error("You are not an Admin");
                 err.status = 401;
                 return next(err);
             } else {
@@ -61,3 +60,6 @@ router.post("/adminLogin", (req, res, next) => {
             }
         }).catch(next);
 })
+
+
+module.exports = router;
