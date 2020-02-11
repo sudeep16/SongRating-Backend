@@ -4,10 +4,7 @@ const admin = new mongoose.Schema({
     Username: {
         type: String,
         required: true,
-        unique: true,
-        minlength: 6,
-        maxlength: 50
-
+        unique: true
     },  Password: {
         type: String,
         required:true

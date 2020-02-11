@@ -8,6 +8,9 @@ const dotenv = require("dotenv").config();
 const authentication = require("./authentication")
 const usersRoute =  require("./controllers/userRegController")
 const imageRoute = require("./controllers/upload")
+const songUpload = require("./controllers/songUpload")
+const adminRoute = require("./controllers/adminRegController")
+const songRoute = require("./controllers/songs")
 
 const rateapp = express();
 rateapp.options("*", cors());
@@ -19,7 +22,11 @@ rateapp.use(express.static(__dirname + "/public"));
 //Routes
 rateapp.use("/users", usersRoute);
 rateapp.use("/upload", imageRoute);
+rateapp.use("/songUpload", songUpload);
+rateapp.use("/admin", adminRoute);
 rateapp.use(authentication.verifyUser);
+rateapp.use("/song", songRoute);
+
 
 
 //Database Connection
