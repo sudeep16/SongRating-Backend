@@ -77,7 +77,7 @@ router.get("/profile", authentication.verifyUser, (req, res, next) => {
         Address: req.user.Address,
         Gender: req.user.Gender,
         Phone: req.user.Phone,
-        Image: req.user.Image
+        Image: user.Image
     });
 });
 

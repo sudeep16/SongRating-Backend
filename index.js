@@ -13,7 +13,7 @@ const adminRoute = require("./controllers/adminRegController")
 const songRoute = require("./controllers/songs")
 
 const rateapp = express();
-rateapp.options("*", cors());
+rateapp.use(cors());
 rateapp.use(morgan("tiny"));
 rateapp.use(express.json());
 rateapp.use(express.urlencoded({ extended: true }));
