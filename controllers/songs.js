@@ -14,16 +14,16 @@ router.route("/", authentication.verifyAdmin)
             }).catch(next);
     });
 
-// router.route("/:categories")
-// .get((req, res, next) => {
-//     Book.find({categories: req.params.categories})
-//     .then((books) => {
-//         console.log(books);
-//         res.json(books);
-//     })
-//     .catch((err) => {
-//         next(err)
-//     });
-// })
+router.route("/:Genre")
+.get((req, res, next) => {
+    Song.find({categories: req.params.Genre})
+    .then((song) => {
+        console.log(song);
+        res.json(song);
+    })
+    .catch((err) => {
+        next(err)
+    });
+})
 
 module.exports = router;
