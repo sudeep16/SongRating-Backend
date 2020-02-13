@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Admin = require("../models/adminModel");
+const UsersRegistered = require("../models/usersModel")
+const authentication = require("../authentication")
 const router = express.Router();
 
 //Registration
@@ -60,6 +62,26 @@ router.post("/adminLogin", (req, res, next) => {
             }
         }).catch(next);
 })
+
+router.get("/userList", authentication.verifyAdmin, (req, res, next) => {
+    UsersRegistered.find()
+        .then((users) => {
+            console.log(users);
+            res.json(users)
+        })
+        .catch((err) => {
+            next(err)
+        })
+})
+
+router.route("/userList/:id")
+    .delete(authentication.verifyAdmin, (req, res, next) => {
+        UsersRegistered.findOneAndDelete({ _id: req.params.id })
+            .then((users) => {
+                if (users == null) throw new Error("User Not Found");
+                res.json(users)
+            }).catch(next)
+    })
 
 
 module.exports = router;

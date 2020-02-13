@@ -12,7 +12,17 @@ router.route("/", authentication.verifyAdmin)
                 res.statusCode = 201;
                 res.json(song);
             }).catch(next);
-    });
+    })
+
+    .get((req, res, next) => {
+        Song.find()
+            then((song) => {
+                res.json(song);
+            })
+            .catch((err) => {
+                next(err);
+            });
+        });
 
 router.route("/:Genre")
 .get((req, res, next) => {
