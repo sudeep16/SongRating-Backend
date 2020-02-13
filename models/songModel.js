@@ -22,11 +22,9 @@ const songs = new mongoose.Schema({
 
     },  SongFile: {
         type: String,
-        required:true
 
     },  Image:{
         type: String,
-        required:true
 
     },  rater: {
         type: mongoose.Schema.Types.ObjectId,
