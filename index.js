@@ -11,6 +11,7 @@ const imageRoute = require("./controllers/upload")
 const songUpload = require("./controllers/songUpload")
 const adminRoute = require("./controllers/adminRegController")
 const songRoute = require("./controllers/songs")
+const uSong = require("./controllers/userSongController")
 
 const rateapp = express();
 rateapp.use(cors());
@@ -26,6 +27,7 @@ rateapp.use("/songUpload", songUpload);
 rateapp.use("/admin", adminRoute);
 rateapp.use(authentication.verifyUser);
 rateapp.use("/song", songRoute);
+rateapp.use('/uSong',uSong);
 
 
 

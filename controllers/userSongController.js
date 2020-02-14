@@ -5,7 +5,7 @@ const router = express.Router();
 router.route("/")
     .post((req, res, next) => {
         let uSong = new userSong(req.body);
-        usong.rater = req.user._id;
+        uSong.rater = req.user._id;
         console.log(uSong)
         uSong.save()
             .then((uSong) => {
