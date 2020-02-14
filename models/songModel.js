@@ -26,6 +26,9 @@ const songs = new mongoose.Schema({
     },  Image:{
         type: String,
 
+    },  Rating:{
+        type: String,
+
     },  rater: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Song"

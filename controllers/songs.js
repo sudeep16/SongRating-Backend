@@ -16,7 +16,7 @@ router.route("/", authentication.verifyAdmin)
 
     .get((req, res, next) => {
         Song.find()
-            then((song) => {
+            .then((song) => {
                 res.json(song);
             })
             .catch((err) => {
@@ -26,7 +26,7 @@ router.route("/", authentication.verifyAdmin)
 
 router.route("/:Genre")
 .get((req, res, next) => {
-    Song.find({categories: req.params.Genre})
+    Song.find({Genre: req.params.Genre})
     .then((song) => {
         console.log(song);
         res.json(song);
