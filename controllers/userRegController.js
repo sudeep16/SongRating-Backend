@@ -77,7 +77,7 @@ router.get("/profile", authentication.verifyUser, (req, res, next) => {
         Address: req.user.Address,
         Gender: req.user.Gender,
         Phone: req.user.Phone,
-        Image: user.Image
+        Image: req.user.Image
     });
 });
 
@@ -95,5 +95,27 @@ router.put("/updProfile", authentication.verifyUser, (req, res, next) => {
         })
         .catch(next);
 });
+
+router.route("/")
+    .get((req, res, next) => {
+        UsersRegistered.find({ rater: req.user._id})
+        .then((customers) => {
+            console.log(usersRegistered);
+            res.json(usersRegistered);
+        })
+        .catch((err) => {
+            next(err)
+        });
+    })
+    .post((req, res, next) => {
+        let usersRegistered = new UsersRegistered(req.body);
+        usersRegistered.rater = req.user._id;
+        console.log(usersRegistered);
+        usersRegistered.save()
+        .then((usersRegistered) => {
+            res.statusCode = 201;
+            res.json(usersRegistered);
+        }).catch(next);
+    });
 
 module.exports = router;
