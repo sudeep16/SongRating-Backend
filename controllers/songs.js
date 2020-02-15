@@ -36,4 +36,27 @@ router.route("/:Genre")
     });
 })
 
+router.route("/:id")
+.put(authentication.verifyAdmin, (req, res, next) => {
+    // console.log(req.songRating);
+    Song.findByIdAndUpdate({_id:req.params.id}, { $set: req.body }, { new: true })
+        .then((song) => {
+            res.json({
+                _id: song._id,
+                SongTitle: song.SongTitle,
+                Artist: song.Artist,
+                Genre: song.Genre,
+                Duration: song.Duration
+            });
+        })
+        .catch(next);
+})
+.delete(authentication.verifyAdmin, (req, res, next)=>{
+    Song.findOneAndDelete({_id:req.params.id})
+    .then((song)=>{
+        if(song == null) throw new Error("Song Not Available");
+        res.json(song);
+    }).catch(next);
+});
+
 module.exports = router;

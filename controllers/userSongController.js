@@ -1,5 +1,6 @@
 const express = require("express");
 const userSong = require("../models/usersSongs");
+const authentication = require("../authentication")
 const router = express.Router();
 
 router.route("/")
@@ -13,15 +14,15 @@ router.route("/")
                 res.json(uSong);
             }).catch(next);
     })
-    .get((req,res, next) =>{
-        userSong.find({rater: req.user._id})
-        .then((uSong) => {
-            console.log(uSong);
-            res.json(uSong);
-        })
-        .catch((err) =>{
-            next(err);
-        })
+    .get((req, res, next) => {
+        userSong.find({ rater: req.user._id })
+            .then((uSong) => {
+                console.log(uSong);
+                res.json(uSong);
+            })
+            .catch((err) => {
+                next(err);
+            })
     })
     .delete((req, res, next) => {
         userSong.findOneAndDelete({ rater: req.user._id })
@@ -30,4 +31,6 @@ router.route("/")
                 res.json(uSong);
             }).catch(next);
     })
+
+
 module.exports = router;
