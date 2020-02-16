@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.route("/")
     .post((req, res, next) => {
+        console.log(req.body)
         let uSong = new userSong(req.body);
         uSong.rater = req.user._id;
         console.log(uSong)
@@ -30,6 +31,15 @@ router.route("/")
                 if (uSong == null) throw new Error("Song not found");
                 res.json(uSong);
             }).catch(next);
+    })
+
+    router.route("/:id")
+    .delete(authentication.verifyUser, (req, res, next) => {
+        userSong.findOneAndDelete({ _id: req.params.id })
+            .then((uSong) => {
+                if (uSong == null) throw new Error("Song Not Found");
+                res.json(uSong)
+            }).catch(next)
     })
 
 

@@ -5,6 +5,7 @@ const authentication = require('../authentication');
 
 router.route("/", authentication.verifyAdmin)
     .post((req, res, next) => {
+        console.log(req.body)
         let song = new Song(req.body);
         // console.log(book)
         song.save()
