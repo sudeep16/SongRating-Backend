@@ -42,5 +42,16 @@ router.route("/")
             }).catch(next)
     })
 
+    .get((req, res, next) => {
+        userSong.find({ rater: req.user._id })
+            .then((uSong) => {
+                console.log(uSong);
+                res.json(uSong);
+            })
+            .catch((err) => {
+                next(err);
+            })
+    })
+
 
 module.exports = router;

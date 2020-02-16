@@ -17,7 +17,7 @@ describe('User Registeration Testing', () => {
     var id = '';
     it('Register User', ()=>{
         const user = {
-            "Username": "uniqueSudeep1222",
+            "Username": "uniqueSudeep",
             "Password":"sudeep123",
             "Email":"sudeep@gmail.com",
             "Phone": "9805652585",
@@ -28,7 +28,7 @@ describe('User Registeration Testing', () => {
         return User.create(user)
         .then((user_res)=>{
             id=user_res._id;
-            expect(user_res.Username).toEqual('uniqueSudeep1222');
+            expect(user_res.Username).toEqual('uniqueSudeep');
 
         });
     })
@@ -37,13 +37,13 @@ describe('User Registeration Testing', () => {
 
     it('Updateuser Testing', () => {
         const updateUser = {
-            Username: 'sudeep23'
+            Username: 'sudeep1'
         }
         console.log(id)
         return User.findByIdAndUpdate(id, updateUser, {
             new: true
         }).then((updateUser) => {
-            expect(updateUser.Username).toEqual('sudeep23');
+            expect(updateUser.Username).toEqual('sudeep1');
         });
     });
 
