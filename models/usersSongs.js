@@ -4,9 +4,6 @@ const userSong = new mongoose.Schema({
     SongTitle: {
         type: String,
         required: true,
-        unique: true,
-        minlength: 6,
-        maxlength: 50
 
     },  Artist: {
         type: String,
